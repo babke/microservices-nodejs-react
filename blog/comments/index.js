@@ -24,6 +24,8 @@ app.post('/posts/:id/comments', async (req, res) => {
 
     commentsByPostId[req.params.id] = comments;
 
+    console.log('Comment recieved...: ' + content);
+
     await axios.post('http://event-bus-srv:4005/events', {
         type: "CommentCreated",
         data: {
