@@ -3,12 +3,16 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import mongoose, { mongo } from 'mongoose';
 import cookieSession from 'cookie-session';
-import { errorHandler, NotFoundError } from '@babketickets/gittixcommon';
+import {
+  errorHandler,
+  NotFoundError,
+  currentUser,
+} from '@babketickets/gittixcommon';
 
-import { currentUserRouter } from './routes/current-user';
-import { signupRouter } from './routes/signup';
-import { signinRouter } from './routes/signin';
-import { signoutRouter } from './routes/signout';
+import { createTicketRouter } from './routes/new';
+import { showTicketRouter } from './routes/show';
+import { indexTicketRouter } from './routes';
+import { updateTicketRouter } from './routes/update';
 
 const app = express();
 app.set('trust proxy', true);
@@ -19,11 +23,12 @@ app.use(
     secure: process.env.NODE_ENV !== 'test',
   })
 );
+app.use(currentUser);
 
-app.use(currentUserRouter);
-app.use(signinRouter);
-app.use(signoutRouter);
-app.use(signupRouter);
+app.use(createTicketRouter);
+app.use(showTicketRouter);
+app.use(indexTicketRouter);
+app.use(updateTicketRouter);
 
 app.all('*', async () => {
   throw new NotFoundError();
