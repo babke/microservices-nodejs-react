@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { app } from '../app';
+import { app } from '../../app';
 import mongoose from 'mongoose';
 
 it('return 404 if ticket not found', async () => {
