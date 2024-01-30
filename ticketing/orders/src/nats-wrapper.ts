@@ -1,3 +1,4 @@
+import { error } from 'console';
 import nats, { Stan } from 'node-nats-streaming';
 import { readJsonConfigFile } from 'typescript';
 
@@ -22,6 +23,7 @@ class NatsWrapper {
       });
 
       this.client.on('error', (err) => {
+        console.error(`Error when connecting to NATS: ${error}`);
         reject(err);
       });
     });
