@@ -1,7 +1,6 @@
 import {
   Listener,
   OrderCreatedEvent,
-  OrderStatus,
   Subjects,
 } from '@babketickets/gittixcommon';
 import { queueGroupName } from './queue-group-name';
