@@ -21,6 +21,13 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
     ticket.set({ orderId: undefined });
     await ticket.save();
 
+    console.log(
+      'Ticket updated - order:cancelled: ',
+      ticket.id,
+      ticket.version,
+      ticket.orderId
+    );
+
     await new TicketUpdatedPublisher(this.client).publish({
       id: ticket.id,
       version: ticket.version,

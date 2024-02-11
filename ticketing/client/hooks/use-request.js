@@ -5,10 +5,10 @@ export default ({ url, method, body, onSuccess }) => {
   // method must be equal to 'post', 'get', 'patch'
   const [errors, setErrors] = useState(null);
 
-  const doRequest = async () => {
+  const doRequest = async (props = {}) => {
     try {
       setErrors(null);
-      const response = await axios[method](url, body);
+      const response = await axios[method](url, { ...body, ...props });
 
       if (onSuccess) {
         onSuccess(response.data);
@@ -16,6 +16,7 @@ export default ({ url, method, body, onSuccess }) => {
 
       return response.data;
     } catch (erro) {
+      //console.log('Error', erro);
       setErrors(
         <div className="alert alert-danger">
           <h4>Ooops...</h4>
